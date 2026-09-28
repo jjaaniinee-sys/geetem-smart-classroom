@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Smart Classroom Availability System</title>
+
+    <link rel="stylesheet" href="geetem.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>Smart Classroom Availability System</h1>
+
+    <p>Classroom Availability and Scheduling</p>
+
+</header>
+
+
+<nav>
+
+    <a href="geetem.html">Dashboard</a>
+
+    <a href="classrooms.html">Classrooms</a>
+
+    <a href="reservations.html">Reservations</a>
+
+    <a href="schedule.html">Schedule</a>
+
+</nav>
+
+
+<main>
+
+
+    <!-- SYSTEM STATUS -->
+
+    <section class="system-bar">
+
+        <div>
+
+            <strong>System Status:</strong>
+
+            <span class="online">
+                ● Online
+            </span>
+
+        </div>
+
+
+        <div id="dateTime">
+
+            Loading time...
+
+        </div>
+
+    </section>
+
+
+
+    <!-- DASHBOARD SUMMARY -->
+
+    <section class="summary">
+
+
+        <div class="card">
+
+            <h2>5</h2>
+
+            <p>Total Classrooms</p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>3</h2>
+
+            <p>Available</p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>1</h2>
+
+            <p>Occupied</p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>1</h2>
+
+            <p>Reserved</p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+
+        <h2>Welcome to the Smart Classroom System</h2>
+
+        <p>
+
+            Check classroom availability, view schedules,
+            and reserve classrooms easily.
+
+        </p>
+
+
+        <a href="classrooms.html" class="main-button">
+
+            View Classrooms
+
+        </a>
+
+    </section>
+
+
+
+    <!-- TODAY'S OVERVIEW -->
+
+    <section class="dashboard-section">
+
+        <h2>Today's Classroom Overview</h2>
+
+
+        <div class="overview-container">
+
+
+            <div class="overview-card">
+
+                <strong>Room 101</strong>
+
+                <p>8:00 AM - 10:00 AM</p>
+
+                <p>Programming</p>
+
+                <span class="available">
+                    Available
+                </span>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <strong>Room 102</strong>
+
+                <p>10:00 AM - 12:00 PM</p>
+
+                <p>Database</p>
+
+                <span class="occupied">
+                    Occupied
+                </span>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <strong>Room 103</strong>
+
+                <p>1:00 PM - 3:00 PM</p>
+
+                <p>Web Development</p>
+
+                <span class="reserved">
+                    Reserved
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- RECENT RESERVATION -->
+
+    <section class="dashboard-section">
+
+        <h2>Recent Reservation</h2>
+
+
+        <div id="recentReservation">
+
+            <p>
+                No reservations made yet.
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<footer>
+
+    <p>
+        Smart Classroom Availability System | GEE - TEM
+
+</footer>
+
+
+
+<script>
+
+function showTime() {
+
+    var now = new Date();
+
+    var date =
+        now.toLocaleDateString();
+
+    var time =
+        now.toLocaleTimeString();
+
+    document.getElementById("dateTime").innerHTML =
+        date + " | " + time;
+
+}
+
+
+showTime();
+
+setInterval(showTime, 1000);
+
+
+
+function showRecentReservation() {
+
+    var room =
+        localStorage.getItem("room");
+
+    var date =
+        localStorage.getItem("date");
+
+    var time =
+        localStorage.getItem("time");
+
+
+    if (room == null) {
+
+        return;
+
+    }
+
+
+    document.getElementById("recentReservation").innerHTML =
+
+        "<div class='reservation-card'>" +
+
+        "<h3>" + room + "</h3>" +
+
+        "<p><strong>Date:</strong> " +
+        date +
+        "</p>" +
+
+        "<p><strong>Time:</strong> " +
+        time +
+        "</p>" +
+
+        "<span class='reserved'>" +
+        "Reserved" +
+        "</span>" +
+
+        "</div>";
+
+}
+
+
+showRecentReservation();
+
+</script>
+
+
+</body>
+
+</html>
