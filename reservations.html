@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Classrooms - Smart Classroom System</title>
+    <title>Reservations - Smart Classroom System</title>
 
     <link rel="stylesheet" href="geetem.css">
 
@@ -15,9 +15,9 @@
 
 <header>
 
-    <h1>Classroom Availability</h1>
+    <h1>Smart Classroom Availability System</h1>
 
-    <p>Check available classrooms</p>
+    <p>Classroom Availability and Scheduling</p>
 
 </header>
 
@@ -40,163 +40,119 @@
 
     <section class="page-title">
 
-        <h2>Classrooms</h2>
+        <h2>Room Reservations</h2>
 
         <p>
-            Search for a classroom and check its current status.
+            Reserve an available classroom for your class or activity.
         </p>
 
     </section>
 
 
 
-    <!-- SEARCH -->
+    <!-- RESERVATION FORM -->
 
-    <section class="search-box">
+    <section class="reservation-box">
+
+        <h2>Make a Reservation</h2>
+
+
+        <label for="room">
+            Classroom
+        </label>
+
+
+        <select id="room">
+
+            <option value="Room 101">
+                Room 101
+            </option>
+
+            <option value="Room 102">
+                Room 102
+            </option>
+
+            <option value="Room 103">
+                Room 103
+            </option>
+
+            <option value="Room 104">
+                Room 104
+            </option>
+
+            <option value="Room 105">
+                Room 105
+            </option>
+
+        </select>
+
+
+
+        <label for="date">
+            Date
+        </label>
+
+
+        <input
+            type="date"
+            id="date"
+        >
+
+
+
+        <label for="time">
+            Time
+        </label>
+
+
+        <input
+            type="time"
+            id="time"
+        >
+
+
+
+        <label for="purpose">
+            Purpose
+        </label>
+
 
         <input
             type="text"
-            id="searchRoom"
-            placeholder="Search classroom..."
-            onkeyup="searchClassrooms()"
+            id="purpose"
+            placeholder="Enter class or activity"
         >
+
+
+
+        <button
+            type="button"
+            class="reserve-button"
+            onclick="reserveRoom()"
+        >
+
+            Reserve Classroom
+
+        </button>
 
     </section>
 
 
 
-    <!-- ROOMS -->
+    <!-- RESERVATION RESULT -->
 
-    <section>
+    <section class="reservation-list">
 
-        <div class="room-container">
-
-
-            <div class="room-card">
-
-                <h3>Room 101</h3>
-
-                <p>Capacity: 30 students</p>
-
-                <span class="available">
-                    Available
-                </span>
+        <h2>Current Reservation</h2>
 
 
-                <br>
+        <div id="result">
 
-
-                <a
-                    href="reservations.html?room=101"
-                    class="small-button"
-                >
-                    Reserve
-                </a>
-
-            </div>
-
-
-
-            <div class="room-card">
-
-                <h3>Room 102</h3>
-
-                <p>Capacity: 40 students</p>
-
-                <span class="occupied">
-                    Occupied
-                </span>
-
-            </div>
-
-
-
-            <div class="room-card">
-
-                <h3>Room 103</h3>
-
-                <p>Capacity: 50 students</p>
-
-                <span class="reserved">
-                    Reserved
-                </span>
-
-            </div>
-
-
-
-            <div class="room-card">
-
-                <h3>Room 104</h3>
-
-                <p>Capacity: 60 students</p>
-
-                <span class="available">
-                    Available
-                </span>
-
-
-                <br>
-
-
-                <a
-                    href="reservations.html?room=104"
-                    class="small-button"
-                >
-                    Reserve
-                </a>
-
-            </div>
-
-
-
-            <div class="room-card">
-
-                <h3>Room 105</h3>
-
-                <p>Capacity: 80 students</p>
-
-                <span class="available">
-                    Available
-                </span>
-
-
-                <br>
-
-
-                <a
-                    href="reservations.html?room=105"
-                    class="small-button"
-                >
-                    Reserve
-                </a>
-
-            </div>
-
+            <p>
+                No reservation yet.
+            </p>
 
         </div>
-
-    </section>
-
-
-
-    <!-- INFORMATION -->
-
-    <section class="welcome">
-
-        <h2>Need a classroom?</h2>
-
-        <p>
-            Select an available classroom to make a reservation.
-        </p>
-
-
-        <a
-            href="reservations.html"
-            class="main-button"
-        >
-            Make a Reservation
-        </a>
 
     </section>
 
@@ -216,36 +172,88 @@
 
 <script>
 
-function searchClassrooms() {
 
-    var input =
-        document.getElementById("searchRoom").value.toLowerCase();
+function reserveRoom() {
 
-    var rooms =
-        document.getElementsByClassName("room-card");
+    var room =
+        document.getElementById("room").value;
+
+    var date =
+        document.getElementById("date").value;
+
+    var time =
+        document.getElementById("time").value;
+
+    var purpose =
+        document.getElementById("purpose").value;
 
 
-    for (var i = 0; i < rooms.length; i++) {
+    if (date == "" || time == "" || purpose == "") {
 
-        var roomName =
-            rooms[i].getElementsByTagName("h3")[0].innerText.toLowerCase();
+        alert(
+            "Please complete all reservation details."
+        );
 
-
-        if (roomName.includes(input)) {
-
-            rooms[i].style.display = "block";
-
-        }
-
-        else {
-
-            rooms[i].style.display = "none";
-
-        }
+        return;
 
     }
 
+
+    localStorage.setItem(
+        "room",
+        room
+    );
+
+
+    localStorage.setItem(
+        "date",
+        date
+    );
+
+
+    localStorage.setItem(
+        "time",
+        time
+    );
+
+
+    localStorage.setItem(
+        "purpose",
+        purpose
+    );
+
+
+    document.getElementById("result").innerHTML =
+
+        "<div class='reservation-card'>" +
+
+        "<h3>" + room + "</h3>" +
+
+        "<p><strong>Date:</strong> " +
+        date +
+        "</p>" +
+
+        "<p><strong>Time:</strong> " +
+        time +
+        "</p>" +
+
+        "<p><strong>Purpose:</strong> " +
+        purpose +
+        "</p>" +
+
+        "<span class='reserved'>" +
+        "Reserved" +
+        "</span>" +
+
+        "</div>";
+
+
+    alert(
+        "Classroom reserved successfully!"
+    );
+
 }
+
 
 </script>
 
